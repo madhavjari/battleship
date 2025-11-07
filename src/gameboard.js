@@ -1,6 +1,6 @@
 import { Ship } from "./ship";
 
-export class Gameboard {
+export default class Gameboard {
   constructor() {
     this.board = [];
     this.ship = [];
