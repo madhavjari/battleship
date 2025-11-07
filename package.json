@@ -14,7 +14,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/madhavjari/battleship/issues"
   },
@@ -24,6 +23,7 @@
     "@babel/preset-env": "^7.28.5",
     "@eslint/js": "^9.39.1",
     "babel-jest": "^30.2.0",
+    "babel-loader": "^10.0.0",
     "css-loader": "^7.1.2",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
