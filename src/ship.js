@@ -27,7 +27,7 @@ export class Ship {
       else {
         for (
           let i = this.firstCord[0];
-          i < this.firstCord[1] + this.length;
+          i < this.firstCord[0] + this.length;
           i++
         ) {
           if (board[i][this.firstCord[1]] === "not occupied") {

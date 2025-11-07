@@ -4,6 +4,7 @@ export class Gameboard {
   constructor() {
     this.board = [];
     this.ship = [];
+    this.sunkCount;
   }
   createBoard() {
     for (let i = 0; i < 10; i++) {
@@ -29,14 +30,23 @@ export class Gameboard {
   }
 
   receiveAttack([x, y]) {
+    this.sunkCount = 0;
     if (this.board[x][y] !== "not occupied") {
       const hitShip = this.board[x][y];
       for (let i = 0; i < this.ship.length; i++) {
         if (this.ship[i].name === hitShip) {
-          return this.ship[i].hit();
+          this.board[x][y] = "hit";
+          this.ship[i].hit();
+          break;
+        }
+      }
+      for (let i = 0; i < this.ship.length; i++) {
+        if (this.ship[i].sunk === true) {
+          this.sunkCount++;
         }
       }
     } else {
+      this.board[x][y] = "missed";
       return "missed";
     }
   }
