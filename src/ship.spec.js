@@ -1,23 +1,23 @@
 import { Ship } from "./ship";
 
 test("Ship length", () => {
-  const newShip = new Ship(1);
+  const newShip = new Ship("", 1);
   expect(newShip.length).toBe(1);
 });
 
 test("Ship hit initial is 0", () => {
-  const newShip = new Ship(2);
+  const newShip = new Ship("", 2);
   expect(newShip.hitCount).toBe(0);
 });
 
 test("First hit", () => {
-  const newShip = new Ship(3);
+  const newShip = new Ship("", 3);
   newShip.hit();
   expect(newShip.hitCount).toBe(1);
 });
 
 test("Ship is Sunk", () => {
-  const newShip = new Ship(3);
+  const newShip = new Ship("", 3);
   newShip.hit();
   newShip.hit();
   newShip.hit();
@@ -25,10 +25,13 @@ test("Ship is Sunk", () => {
 });
 
 test("New ship status", () => {
-  const newShip = new Ship(1);
+  const newShip = new Ship("", 1, "horizontal", [2, 3]);
   newShip.hit();
   expect(newShip).toEqual({
+    name: "",
     length: 1,
+    direction: "horizontal",
+    firstCord: [2, 3],
     hitCount: 1,
     sunk: true,
   });
