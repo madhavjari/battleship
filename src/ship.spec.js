@@ -1,4 +1,4 @@
-import { Ship } from "./ship";
+import Ship from "./ship";
 
 test("Ship length", () => {
   const newShip = new Ship("", 1);

@@ -14,19 +14,54 @@ export default class Gameboard {
       }
     }
   }
+
+  getBoard = () => {
+    return this.board;
+  };
+
   createShips() {
-    const carrier = new Ship("carrier", 5, "horizontal", [2, 3]);
-    carrier.shipCordinates(this.board);
-    const battleShip = new Ship("battleship", 4, "vertical", [3, 3]);
-    battleShip.shipCordinates(this.board);
-    const destroyer = new Ship("destroyer", 3, "vertical", [7, 6]);
-    destroyer.shipCordinates(this.board);
-    const submarine = new Ship("submarine", 2, "horizontal", [9, 1]);
-    submarine.shipCordinates(this.board);
-    const patrolBoat = new Ship("patrolboat", 1, "vertical", [0, 0]);
-    patrolBoat.shipCordinates(this.board);
+    this.createBoard();
+    const carrier = new Ship(5);
+    this.shipCordinates("carrier", carrier.length, "horizontal", [2, 3]);
+    const battleShip = new Ship(4);
+    this.shipCordinates("battleship", battleShip.length, "vertical", [3, 3]);
+    const destroyer = new Ship(3);
+    this.shipCordinates("destroyer", destroyer.length, "vertical", [7, 6]);
+    const submarine = new Ship(2);
+    this.shipCordinates("submarine", submarine.length, "horizontal", [9, 1]);
+    const patrolBoat = new Ship(1);
+    this.shipCordinates("patrolboat", patrolBoat.length, "vertical", [0, 0]);
     this.ship.push(carrier, battleShip, destroyer, submarine, patrolBoat);
-    //return this.board;
+  }
+
+  shipCordinates(name, length, direction, [x, y]) {
+    if (direction === "horizontal") {
+      if (y + length > 10) throw new Error("cannot proceed furthur");
+      else {
+        for (let j = y; j < y + length; j++) {
+          if (this.board[x][j] !== "not occupied")
+            throw new Error("already occupied");
+        }
+      }
+    } else if (direction === "vertical") {
+      if (x + length > 10) throw new Error("cannot proceed furthur");
+      else {
+        for (let i = x; i < x + length; i++) {
+          if (this.board[i][y] !== "not occupied")
+            throw new Error("already occupied");
+        }
+      }
+    }
+
+    if (direction === "horizontal") {
+      for (let j = y; j < y + length; j++) {
+        this.board[x][j] = name;
+      }
+    } else if (direction === "vertical") {
+      for (let i = x; i < x + length; i++) {
+        this.board[i][y] = name;
+      }
+    }
   }
 
   receiveAttack([x, y]) {

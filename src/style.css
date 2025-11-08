@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(28, 31, 29);
+}
+header {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+h1,
+button {
+  color: beige;
+}
+button {
+  height: 2.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  background-color: rgb(28, 31, 29);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: rgb(122, 126, 99);
+}
+
+.game-ui {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+}
+
+.human,
+.computer {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  gap: 1px;
+}
+
+.blank,
+.ship {
+  height: 40px;
+  width: 40px;
+  background-color: beige;
+}
+
+.ship {
+  background-color: brown;
+}
