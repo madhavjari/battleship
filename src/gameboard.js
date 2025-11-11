@@ -1,10 +1,11 @@
 import Ship from "./ship";
 
 export default class Gameboard {
-  constructor() {
+  constructor(cordinates) {
     this.board = [];
     this.ship = [];
     this.sunkCount;
+    this.cordinates = cordinates;
   }
   createBoard() {
     for (let i = 0; i < 10; i++) {
@@ -21,16 +22,41 @@ export default class Gameboard {
 
   createShips() {
     this.createBoard();
-    const carrier = new Ship(5);
-    this.shipCordinates("carrier", carrier.length, "horizontal", [2, 3]);
-    const battleShip = new Ship(4);
-    this.shipCordinates("battleship", battleShip.length, "vertical", [3, 3]);
-    const destroyer = new Ship(3);
-    this.shipCordinates("destroyer", destroyer.length, "vertical", [7, 6]);
-    const submarine = new Ship(2);
-    this.shipCordinates("submarine", submarine.length, "horizontal", [9, 1]);
-    const patrolBoat = new Ship(1);
-    this.shipCordinates("patrolboat", patrolBoat.length, "vertical", [0, 0]);
+    const carrier = new Ship("carrier", 5);
+    this.shipCordinates(
+      "carrier",
+      carrier.length,
+      this.cordinates[1],
+      this.cordinates[0],
+    );
+    const battleShip = new Ship("battleship", 4);
+    this.shipCordinates(
+      "battleship",
+      battleShip.length,
+      this.cordinates[3],
+      this.cordinates[2],
+    );
+    const destroyer = new Ship("destroyer", 3);
+    this.shipCordinates(
+      "destroyer",
+      destroyer.length,
+      this.cordinates[5],
+      this.cordinates[4],
+    );
+    const submarine = new Ship("submarine", 2);
+    this.shipCordinates(
+      "submarine",
+      submarine.length,
+      this.cordinates[7],
+      this.cordinates[6],
+    );
+    const patrolBoat = new Ship("patrolboat", 1);
+    this.shipCordinates(
+      "patrolboat",
+      patrolBoat.length,
+      this.cordinates[9],
+      this.cordinates[8],
+    );
     this.ship.push(carrier, battleShip, destroyer, submarine, patrolBoat);
   }
 
@@ -64,7 +90,7 @@ export default class Gameboard {
     }
   }
 
-  receiveAttack([x, y]) {
+  receiveAttack(x, y) {
     this.sunkCount = 0;
     if (this.board[x][y] !== "not occupied") {
       const hitShip = this.board[x][y];

@@ -43,6 +43,10 @@ button:hover {
   gap: 1px;
 }
 
+.computer > * {
+  cursor: pointer;
+}
+
 .blank,
 .ship {
   height: 40px;
@@ -50,6 +54,22 @@ button:hover {
   background-color: beige;
 }
 
-.ship {
+.computer > * {
+  background-color: beige;
+}
+
+.human > .ship {
+  background-color: brown;
+}
+
+.missed {
+  background-color: aqua;
+}
+
+.hit {
+  background-color: blue;
+}
+
+.sunk {
   background-color: brown;
 }
