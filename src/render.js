@@ -1,5 +1,3 @@
-import Player from "./player";
-
 export function render(player1, player2) {
   const body = document.querySelector("body");
   const gameUI = document.createElement("div");

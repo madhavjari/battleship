@@ -4,6 +4,7 @@ export default class Ship {
     this.length = length;
     this.hitCount = hitCount;
     this.sunk = sunk;
+    this.allCordinates = [];
   }
 
   hit() {

@@ -23,56 +23,31 @@ export default class Gameboard {
   createShips() {
     this.createBoard();
     const carrier = new Ship("carrier", 5);
-    this.shipCordinates(
-      "carrier",
-      carrier.length,
-      this.cordinates[1],
-      this.cordinates[0],
-    );
+    this.shipCordinates(carrier, this.cordinates[1], this.cordinates[0]);
     const battleShip = new Ship("battleship", 4);
-    this.shipCordinates(
-      "battleship",
-      battleShip.length,
-      this.cordinates[3],
-      this.cordinates[2],
-    );
+    this.shipCordinates(battleShip, this.cordinates[3], this.cordinates[2]);
     const destroyer = new Ship("destroyer", 3);
-    this.shipCordinates(
-      "destroyer",
-      destroyer.length,
-      this.cordinates[5],
-      this.cordinates[4],
-    );
+    this.shipCordinates(destroyer, this.cordinates[5], this.cordinates[4]);
     const submarine = new Ship("submarine", 2);
-    this.shipCordinates(
-      "submarine",
-      submarine.length,
-      this.cordinates[7],
-      this.cordinates[6],
-    );
+    this.shipCordinates(submarine, this.cordinates[7], this.cordinates[6]);
     const patrolBoat = new Ship("patrolboat", 1);
-    this.shipCordinates(
-      "patrolboat",
-      patrolBoat.length,
-      this.cordinates[9],
-      this.cordinates[8],
-    );
+    this.shipCordinates(patrolBoat, this.cordinates[9], this.cordinates[8]);
     this.ship.push(carrier, battleShip, destroyer, submarine, patrolBoat);
   }
 
-  shipCordinates(name, length, direction, [x, y]) {
+  shipCordinates(ship, direction, [x, y]) {
     if (direction === "horizontal") {
-      if (y + length > 10) throw new Error("cannot proceed furthur");
+      if (y + ship.length > 10) throw new Error("cannot proceed furthur");
       else {
-        for (let j = y; j < y + length; j++) {
+        for (let j = y; j < y + ship.length; j++) {
           if (this.board[x][j] !== "not occupied")
             throw new Error("already occupied");
         }
       }
     } else if (direction === "vertical") {
-      if (x + length > 10) throw new Error("cannot proceed furthur");
+      if (x + ship.length > 10) throw new Error("cannot proceed furthur");
       else {
-        for (let i = x; i < x + length; i++) {
+        for (let i = x; i < x + ship.length; i++) {
           if (this.board[i][y] !== "not occupied")
             throw new Error("already occupied");
         }
@@ -80,12 +55,14 @@ export default class Gameboard {
     }
 
     if (direction === "horizontal") {
-      for (let j = y; j < y + length; j++) {
-        this.board[x][j] = name;
+      for (let j = y; j < y + ship.length; j++) {
+        this.board[x][j] = ship.name;
+        ship.allCordinates.push([x, j]);
       }
     } else if (direction === "vertical") {
-      for (let i = x; i < x + length; i++) {
-        this.board[i][y] = name;
+      for (let i = x; i < x + ship.length; i++) {
+        this.board[i][y] = ship.name;
+        ship.allCordinates.push([i, y]);
       }
     }
   }
@@ -108,7 +85,6 @@ export default class Gameboard {
       }
     } else {
       this.board[x][y] = "missed";
-      return "missed";
     }
   }
 }
