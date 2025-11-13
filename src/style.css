@@ -62,6 +62,10 @@ button:hover {
   background-color: brown;
 }
 
+.human > .hit {
+  background-color: blue;
+}
+
 .missed {
   background-color: aqua;
 }
