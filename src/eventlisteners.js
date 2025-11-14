@@ -4,30 +4,51 @@ export function attachListener(player1, player2) {
     (activePlayer = activePlayer === player1 ? player2 : player1);
 
   let result = false;
-  let UI = document.querySelectorAll(".game-ui > * > *");
-  UI.forEach((div) => {
-    div.addEventListener("click", () => {
-      console.log(div);
-      disablePointer(activePlayer);
-      activePlayer.gameBoard.receiveAttack(
-        div.dataset.cordx,
-        div.dataset.cordy,
-      );
-      attackFeatureOnDOM(div);
-      if (div.classList[1] === "ship") {
-        const ship = foundShip(activePlayer, div.classList[0]);
-        checkSunk(activePlayer, ship);
-      }
-
-      if (activePlayer.gameBoard.sunkCount === 5) {
-        console.log(`${activePlayer.name} won`);
-        result = true;
-      }
-      switchPlayerTurn();
-      console.log("sunk", activePlayer.gameBoard.sunkCount, activePlayer.name);
-      console.log("hit", activePlayer.gameBoard.ship);
-    });
+  const computerUI = document.querySelector(".computer");
+  computerUI.addEventListener("click", (e) => {
+    const attackPart = e.target;
+    attackFeatureOnDOM(attackPart);
+    switchPlayerTurn();
+    console.log("computer Ships", activePlayer.gameBoard.ship);
+    activePlayer.gameBoard.receiveAttack(
+      attackPart.dataset.cordx,
+      attackPart.dataset.cordy,
+    );
+    const compCord = computerRandomSelect();
+    attackFeatureOnDOM(compCord.selectedDIv);
+    switchPlayerTurn();
+    activePlayer.gameBoard.receiveAttack(compCord.x, compCord.y);
+    console.log("human ships", activePlayer.gameBoard.ship);
   });
+  // if (activePlayer === player1) {
+  //   UI.forEach((div) => {
+  //     div.addEventListener("click", () => {
+  //       console.log(div);
+  //       disablePointer(activePlayer);
+  //       activePlayer.gameBoard.receiveAttack(
+  //         div.dataset.cordx,
+  //         div.dataset.cordy,
+  //       );
+  //       attackFeatureOnDOM(div);
+  //       if (div.classList[1] === "ship") {
+  //         const ship = foundShip(activePlayer, div.classList[0]);
+  //         checkSunk(activePlayer, ship);
+  //       }
+
+  //       if (activePlayer.gameBoard.sunkCount === 5) {
+  //         console.log(`${activePlayer.name} won`);
+  //         result = true;
+  //       }
+  //       switchPlayerTurn();
+  //       console.log(
+  //         "sunk",
+  //         activePlayer.gameBoard.sunkCount,
+  //         activePlayer.name,
+  //       );
+  //       console.log("hit", activePlayer.gameBoard.ship);
+  //     });
+  //   });
+  //}
 }
 
 function disablePointer(player) {
@@ -77,5 +98,28 @@ function checkSunk(player, ship) {
     allShipClass.forEach((div) => {
       div.classList.add("sunk");
     });
+  }
+}
+
+export function computerRandomSelect() {
+  while (true) {
+    let alreadyHit = false;
+    let selectedDIv;
+    let x = parseInt(Math.random() * 9);
+    let y = parseInt(Math.random() * 9);
+    const humanUI = document.querySelectorAll(".human > *");
+    humanUI.forEach((div) => {
+      if (
+        x === parseInt(div.dataset.cordx) &&
+        y === parseInt(div.dataset.cordy)
+      ) {
+        selectedDIv = div;
+        if (div.classList.contains("hit") || div.classList.contains("missed")) {
+          alreadyHit = true;
+        }
+      }
+    });
+    if (alreadyHit) continue;
+    return { x, y, selectedDIv };
   }
 }

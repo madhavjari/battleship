@@ -22,16 +22,30 @@ export default class Gameboard {
   createShips() {
     this.createBoard();
     this.ship[0] = new Ship("carrier", 5);
-    this.makeCordinates(this.ship[0].length, this.ship[0].name);
+    this.ship[0]["cordinates"] = this.makeCordinates(
+      this.ship[0].length,
+      this.ship[0].name,
+    );
     this.ship[1] = new Ship("battleship", 4);
-    this.makeCordinates(this.ship[1].length, this.ship[1].name);
+    this.ship[1]["cordinates"] = this.makeCordinates(
+      this.ship[1].length,
+      this.ship[1].name,
+    );
     this.ship[2] = new Ship("destroyer", 3);
-    this.makeCordinates(this.ship[2].length, this.ship[2].name);
+    this.ship[2]["cordinates"] = this.makeCordinates(
+      this.ship[2].length,
+      this.ship[2].name,
+    );
     this.ship[3] = new Ship("submarine", 2);
-    this.makeCordinates(this.ship[3].length, this.ship[3].name);
+    this.ship[3]["cordinates"] = this.makeCordinates(
+      this.ship[3].length,
+      this.ship[3].name,
+    );
     this.ship[4] = new Ship("patrolboat", 1);
-    this.makeCordinates(this.ship[4].length, this.ship[4].name);
-    console.log(this.board);
+    this.ship[4]["cordinates"] = this.makeCordinates(
+      this.ship[4].length,
+      this.ship[4].name,
+    );
   }
 
   makeCordinates(shipLength, shipName) {

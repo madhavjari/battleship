@@ -1,19 +1,22 @@
 import Gameboard from "./gameboard";
 
 const gameBoard = new Gameboard();
-gameBoard.createBoard();
-
-test("gameboard random check", () => {
-  expect(gameBoard.board[8][7]).toEqual("not occupied");
-});
-
 gameBoard.createShips();
 
 test("ship placement", () => {
-  expect(gameBoard.board[4][3]).toEqual("battleship");
-  expect(gameBoard.board[0][0]).toEqual("patrolboat");
-  expect(gameBoard.board[1][0]).toEqual("not occupied");
-  expect(gameBoard.board[9][6]).toEqual("destroyer");
+  const board = gameBoard.board;
+  expect(board.flat()).toContainEqual("not occupied");
+  expect(board.flat()).toContainEqual("battleship");
+  expect(() => board[10][0]).toThrow(TypeError);
+  expect(board.flat()).toContainEqual("destroyer");
+  expect(board.flat()).toContainEqual("carrier");
+  expect(board.flat()).toContainEqual("submarine");
+  expect(board.flat()).toContainEqual("patrolboat");
+  expect(board.flat().filter((v) => v === "battleship").length).toBe(4);
+  expect(board.flat().filter((v) => v === "destroyer").length).toBe(3);
+  expect(board.flat().filter((v) => v === "carrier").length).toBe(5);
+  expect(board.flat().filter((v) => v === "submarine").length).toBe(2);
+  expect(board.flat().filter((v) => v === "patrolboat").length).toBe(1);
 });
 
 test("attack", () => {
