@@ -1,11 +1,10 @@
 import Ship from "./ship";
 
 export default class Gameboard {
-  constructor(cordinates) {
+  constructor() {
     this.board = [];
     this.ship = [];
     this.sunkCount;
-    this.cordinates = cordinates;
   }
   createBoard() {
     for (let i = 0; i < 10; i++) {
@@ -22,49 +21,63 @@ export default class Gameboard {
 
   createShips() {
     this.createBoard();
-    const carrier = new Ship("carrier", 5);
-    this.shipCordinates(carrier, this.cordinates[1], this.cordinates[0]);
-    const battleShip = new Ship("battleship", 4);
-    this.shipCordinates(battleShip, this.cordinates[3], this.cordinates[2]);
-    const destroyer = new Ship("destroyer", 3);
-    this.shipCordinates(destroyer, this.cordinates[5], this.cordinates[4]);
-    const submarine = new Ship("submarine", 2);
-    this.shipCordinates(submarine, this.cordinates[7], this.cordinates[6]);
-    const patrolBoat = new Ship("patrolboat", 1);
-    this.shipCordinates(patrolBoat, this.cordinates[9], this.cordinates[8]);
-    this.ship.push(carrier, battleShip, destroyer, submarine, patrolBoat);
+    this.ship[0] = new Ship("carrier", 5);
+    this.makeCordinates(this.ship[0].length, this.ship[0].name);
+    this.ship[1] = new Ship("battleship", 4);
+    this.makeCordinates(this.ship[1].length, this.ship[1].name);
+    this.ship[2] = new Ship("destroyer", 3);
+    this.makeCordinates(this.ship[2].length, this.ship[2].name);
+    this.ship[3] = new Ship("submarine", 2);
+    this.makeCordinates(this.ship[3].length, this.ship[3].name);
+    this.ship[4] = new Ship("patrolboat", 1);
+    this.makeCordinates(this.ship[4].length, this.ship[4].name);
+    console.log(this.board);
   }
 
-  shipCordinates(ship, direction, [x, y]) {
-    if (direction === "horizontal") {
-      if (y + ship.length > 10) throw new Error("cannot proceed furthur");
-      else {
-        for (let j = y; j < y + ship.length; j++) {
-          if (this.board[x][j] !== "not occupied")
-            throw new Error("already occupied");
+  makeCordinates(shipLength, shipName) {
+    let x;
+    let y;
+    let direction;
+    let madeCord = false;
+    let cordinate = [];
+    let cordCheck = true;
+    while (!madeCord) {
+      cordCheck = true;
+      x = parseInt(Math.random() * 9);
+      y = parseInt(Math.random() * 9);
+      direction = Math.random() < 0.5 ? "h" : "v";
+      if (direction === "h") {
+        if (y + shipLength > 10) {
+          continue;
+        } else {
+          for (let j = y; j < y + shipLength; j++) {
+            if (this.board[x][j] !== "not occupied") cordCheck = false;
+          }
+        }
+      } else if (direction === "v") {
+        if (x + shipLength > 10) {
+          continue;
+        } else {
+          for (let i = x; i < x + shipLength; i++) {
+            if (this.board[i][y] !== "not occupied") cordCheck = false;
+          }
         }
       }
-    } else if (direction === "vertical") {
-      if (x + ship.length > 10) throw new Error("cannot proceed furthur");
-      else {
-        for (let i = x; i < x + ship.length; i++) {
-          if (this.board[i][y] !== "not occupied")
-            throw new Error("already occupied");
+      if (!cordCheck) continue;
+      if (direction === "h") {
+        for (let j = y; j < y + shipLength; j++) {
+          this.board[x][j] = shipName;
+          cordinate.push([x, j]);
+        }
+      } else if (direction === "v") {
+        for (let i = x; i < x + shipLength; i++) {
+          this.board[i][y] = shipName;
+          cordinate.push([i, y]);
         }
       }
+      madeCord = true;
     }
-
-    if (direction === "horizontal") {
-      for (let j = y; j < y + ship.length; j++) {
-        this.board[x][j] = ship.name;
-        ship.allCordinates.push([x, j]);
-      }
-    } else if (direction === "vertical") {
-      for (let i = x; i < x + ship.length; i++) {
-        this.board[i][y] = ship.name;
-        ship.allCordinates.push([i, y]);
-      }
-    }
+    return cordinate;
   }
 
   receiveAttack(x, y) {
