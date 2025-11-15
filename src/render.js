@@ -1,8 +1,6 @@
 export function render(player1, player2) {
   const body = document.querySelector("body");
-  const gameUI = document.createElement("div");
-  gameUI.classList.add("game-ui");
-  body.appendChild(gameUI);
+  const gameUI = document.querySelector(".game-ui");
 
   const humanUI = document.createElement("div");
   humanUI.classList.add("human");

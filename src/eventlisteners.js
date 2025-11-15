@@ -1,3 +1,5 @@
+import { render } from "./render";
+
 export function attachListener(player1, player2) {
   let activePlayer = player1;
   const switchPlayerTurn = () =>
@@ -6,13 +8,11 @@ export function attachListener(player1, player2) {
   const checkWin = () => {
     if (activePlayer.gameBoard.sunkCount === 5) {
       switchPlayerTurn();
-      console.log(`${activePlayer.name} won`);
-      return true;
+      alert(`${activePlayer.name} won`);
+      const gameUI = document.querySelector(".game-ui");
+      gameUI.classList.add("over");
     }
-    return false;
   };
-
-  let result = false;
   const computerUI = document.querySelectorAll(".computer > button");
   computerUI.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -26,15 +26,20 @@ export function attachListener(player1, player2) {
         attackPart.dataset.cordy,
       );
       checkSunk(activePlayer, activePlayer.gameBoard.ship);
-      result = checkWin();
+      checkWin();
       const compCord = computerRandomSelect();
       attackFeatureOnDOM(compCord.selectedDIv);
       switchPlayerTurn();
       activePlayer.gameBoard.receiveAttack(compCord.x, compCord.y);
       checkSunk(activePlayer, activePlayer.gameBoard.ship);
-      result = checkWin();
+      checkWin();
       console.log("human ships", activePlayer.gameBoard.ship);
     });
+  });
+
+  const newGame = document.querySelector("header>button");
+  newGame.addEventListener("click", () => {
+    resetGame(player1, player2);
   });
 }
 
@@ -62,7 +67,7 @@ function checkSunk(player, ship) {
   }
 }
 
-export function computerRandomSelect() {
+function computerRandomSelect() {
   while (true) {
     let alreadyHit = false;
     let selectedDIv;
@@ -83,4 +88,10 @@ export function computerRandomSelect() {
     if (alreadyHit) continue;
     return { x, y, selectedDIv };
   }
+}
+
+function resetGame(player1, player2) {
+  const gameUI = document.querySelector(".game-ui");
+  gameUI.innerHTML = "";
+  render(player1, player2);
 }

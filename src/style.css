@@ -75,3 +75,7 @@ button:hover {
 .sunk {
   background-color: rgb(12, 238, 113);
 }
+
+.over {
+  pointer-events: none;
+}

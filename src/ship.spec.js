@@ -25,13 +25,11 @@ test("Ship is Sunk", () => {
 });
 
 test("New ship status", () => {
-  const newShip = new Ship("", 1, "horizontal", [2, 3]);
+  const newShip = new Ship("", 1);
   newShip.hit();
   expect(newShip).toEqual({
     name: "",
     length: 1,
-    direction: "horizontal",
-    firstCord: [2, 3],
     hitCount: 1,
     sunk: true,
   });
