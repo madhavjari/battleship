@@ -25,22 +25,14 @@ test("all ship length", () => {
   expect(board.flat().filter((v) => v === "patrolboat").length).toBe(1);
 });
 
-test("attack", () => {
-  expect(gameBoard.receiveAttack(2, 2)).toEqual("missed");
-  gameBoard.receiveAttack(0, 0);
-  expect(gameBoard.ship[4].sunk).toBe(true);
+test("ship is sunk", () => {
+  const ship = gameBoard.ship[0];
+  ship.cordinates.forEach(([x, y]) => gameBoard.receiveAttack(x, y));
+  expect(ship.sunk).toBe(true);
 });
 
-test("many hits", () => {
-  gameBoard.receiveAttack([7, 6]);
-  gameBoard.receiveAttack([8, 6]);
-  expect(gameBoard.ship[2].name).toBe("destroyer");
-  expect(gameBoard.ship[2].length).toBe(3);
-  expect(gameBoard.ship[2].hitCount).toBe(2);
-  expect(gameBoard.ship[2].sunk).toBe(false);
-  gameBoard.receiveAttack([9, 6]);
-  expect(gameBoard.ship[2].hitCount).toBe(3);
-  expect(gameBoard.ship[2].sunk).toBe(true);
-  expect(gameBoard.ship[4].sunk).toBe(true);
-  expect(gameBoard.sunkCount).toBe(2);
+test("ship Count increases", () => {
+  const ship = gameBoard.ship[0];
+  ship.cordinates.forEach(([x, y]) => gameBoard.receiveAttack(x, y));
+  expect(gameBoard.sunkCount).toBe(1);
 });

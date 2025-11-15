@@ -8,9 +8,9 @@ export function attachListener(player1, player2) {
   const checkWin = () => {
     if (activePlayer.gameBoard.sunkCount === 5) {
       switchPlayerTurn();
-      alert(`${activePlayer.name} won`);
       const gameUI = document.querySelector(".game-ui");
       gameUI.classList.add("over");
+      alert(`${activePlayer.name} won`);
     }
   };
   const computerUI = document.querySelectorAll(".computer > button");
@@ -61,6 +61,7 @@ function checkSunk(player, ship) {
       console.log(allShipClass);
       allShipClass.forEach((button) => {
         button.classList.remove("ship");
+        button.classList.remove("hit");
         button.classList.add("sunk");
       });
     }
@@ -71,8 +72,8 @@ function computerRandomSelect() {
   while (true) {
     let alreadyHit = false;
     let selectedDIv;
-    let x = parseInt(Math.random() * 9.9);
-    let y = parseInt(Math.random() * 9.9);
+    let x = parseInt(Math.random() * 10);
+    let y = parseInt(Math.random() * 10);
     const humanUI = document.querySelectorAll(".human > *");
     humanUI.forEach((div) => {
       if (
@@ -92,6 +93,8 @@ function computerRandomSelect() {
 
 function resetGame(player1, player2) {
   const gameUI = document.querySelector(".game-ui");
+  gameUI.classList.remove("over");
   gameUI.innerHTML = "";
   render(player1, player2);
+  attachListener(player1, player2);
 }

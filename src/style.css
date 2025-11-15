@@ -6,6 +6,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: rgb(28, 31, 29);
 }
+
 header {
   display: grid;
   align-items: center;
@@ -15,7 +16,7 @@ h1,
 button {
   color: beige;
 }
-button {
+header > button {
   height: 2.5rem;
   border-radius: 0.3rem;
   cursor: pointer;
@@ -24,7 +25,7 @@ button {
   font-weight: bold;
 }
 
-button:hover {
+header > button:hover {
   background-color: rgb(122, 126, 99);
 }
 
@@ -45,6 +46,7 @@ button:hover {
 
 .computer > * {
   cursor: pointer;
+  background-color: beige;
 }
 
 .blank,
@@ -54,28 +56,26 @@ button:hover {
   background-color: beige;
 }
 
-.computer > * {
-  background-color: beige;
-}
-
 .human > .ship {
   background-color: brown;
 }
 
 .missed {
   background-color: aqua;
+}
+
+.missed,
+.hit,
+.sunk,
+.over {
   pointer-events: none;
 }
 
+.human > .hit,
 .hit {
   background-color: blue;
-  pointer-events: none;
 }
 
 .sunk {
-  background-color: rgb(12, 238, 113);
-}
-
-.over {
-  pointer-events: none;
+  background-color: rgb(4, 68, 33);
 }

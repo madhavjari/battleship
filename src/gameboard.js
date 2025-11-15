@@ -4,7 +4,7 @@ export default class Gameboard {
   constructor() {
     this.board = [];
     this.ship = [];
-    this.sunkCount;
+    this.sunkCount = 0;
   }
   createBoard() {
     for (let i = 0; i < 10; i++) {
@@ -57,8 +57,8 @@ export default class Gameboard {
     let cordCheck = true;
     while (!madeCord) {
       cordCheck = true;
-      x = parseInt(Math.random() * 9);
-      y = parseInt(Math.random() * 9);
+      x = parseInt(Math.random() * 10);
+      y = parseInt(Math.random() * 10);
       direction = Math.random() < 0.5 ? "h" : "v";
       if (direction === "h") {
         if (y + shipLength > 10) {
