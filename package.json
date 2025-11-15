@@ -4,6 +4,7 @@
   "description": "Battleship game using tests.",
   "main": "index.js",
   "scripts": {
+    "start": "webpack serve",
     "test": "jest",
     "lint": "eslint"
   },
@@ -29,6 +30,7 @@
     "eslint-config-prettier": "^10.1.8",
     "globals": "^16.5.0",
     "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.4",
     "jest": "^30.2.0",
     "prettier": "3.6.2",
     "style-loader": "^4.0.0",

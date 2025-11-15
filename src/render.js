@@ -23,7 +23,7 @@ export function render(player1, player2) {
   function fillBoard(board, UI) {
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
-        const gameSquare = document.createElement("div");
+        const gameSquare = document.createElement("button");
         gameSquare.dataset.cordx = i;
         gameSquare.dataset.cordy = j;
         if (board[i][j] === "not occupied") {
